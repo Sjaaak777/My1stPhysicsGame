@@ -1,8 +1,22 @@
 import "./styles.css";
+import Game from "./game";
 
-document.getElementById("app").innerHTML = `
-<h1>Hello my second game.</h1>
-<div>
-This will be my first game with physics.
-</div>
-`;
+let canvas = document.getElementById("gameScreen");
+let ctx = canvas.getContext("2d");
+let game = new Game(canvas.width, canvas.height);
+
+game.start();
+
+let lastTime = 0;
+
+function gameLoop(timeStamp) {
+	let deltaTime = lastTime - timeStamp;
+
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	game.update(deltaTime);
+	game.draw(ctx);
+
+	requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
