@@ -1,17 +1,22 @@
+import InputHandler from "./input";
+import Projectile from "../objects/projectile";
+
 export default class Game {
 	constructor(gameWidth, gameHeight) {
 		this.gameWidth = gameWidth;
 		this.gameHeight = gameHeight;
+		// this.gameObjects
 	}
 
 	start() {
-		console.log("test from start");
+		new InputHandler(this);
+		this.projectile = new Projectile(this);
+
+		this.gameObjects = [this.projectile];
 	}
 
 	draw(ctx) {
-		// [...this.gameObjects, ...this.bullets, ...this.invaders].forEach(
-		// 	object => object.draw(ctx)
-		// );
+		this.gameObjects.forEach(object => object.draw(ctx));
 		let lines = 0;
 		for (lines = 0; lines < this.gameWidth; lines++) {
 			ctx.beginPath();
@@ -23,5 +28,7 @@ export default class Game {
 		}
 	}
 
-	update() {}
+	update(deltaTime) {
+		this.gameObjects.forEach(object => object.update(deltaTime));
+	}
 }
