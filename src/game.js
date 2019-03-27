@@ -1,5 +1,6 @@
 import InputHandler from "./input";
 import Projectile from "../objects/projectile";
+import Bumper from "../objects/bumper";
 
 export default class Game {
 	constructor(gameWidth, gameHeight) {
@@ -11,8 +12,9 @@ export default class Game {
 	start() {
 		new InputHandler(this);
 		this.projectile = new Projectile(this);
+		this.bumper = new Bumper(this);
 
-		this.gameObjects = [this.projectile];
+		this.gameObjects = [this.projectile, this.bumper];
 	}
 
 	draw(ctx) {
